@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Prompt Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+    <header class="header">
+        <div>
+            <p class="eyebrow">Task 3</p>
+            <h1>AI Prompt Web App</h1>
+            <p class="muted">Send a prompt to a real AI provider or use deterministic local mock mode.</p>
+        </div>
+        <a class="button secondary" href="{{ url_for('history') }}">View History</a>
+    </header>
+
+    <section class="card">
+        <form id="prompt-form">
+            <label for="template">Prompt template</label>
+            <select id="template" name="template">
+                <option value="general">General</option>
+                <option value="explain">Explain</option>
+                <option value="summarize">Summarize</option>
+                <option value="interview">Interview Answer</option>
+            </select>
+
+            <label for="prompt">Prompt</label>
+            <textarea id="prompt" name="prompt" rows="9"
+                      maxlength="{{ max_prompt_length }}"
+                      placeholder="Type your AI prompt here..."></textarea>
+            <div class="counter"><span id="count">0</span> / {{ max_prompt_length }}</div>
+
+            <button id="submit-btn" class="button primary" type="submit">
+                Send Prompt
+            </button>
+        </form>
+
+        <div id="message" class="message hidden"></div>
+
+        <div class="response-section">
+            <div class="response-header">
+                <h2>Response</h2>
+                <span id="provider-badge" class="badge hidden"></span>
+            </div>
+            <pre id="response" class="response-box">Your response will appear here.</pre>
+        </div>
+    </section>
+</main>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

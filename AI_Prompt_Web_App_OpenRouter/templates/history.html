@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="container">
+    <header class="header">
+        <div>
+            <p class="eyebrow">Task 3</p>
+            <h1>Prompt History</h1>
+            <p class="muted">Latest 100 prompt records stored in SQLite.</p>
+        </div>
+        <a class="button secondary" href="{{ url_for('index') }}">New Prompt</a>
+    </header>
+
+    <section class="card">
+        <form class="search" method="get" action="{{ url_for('history') }}">
+            <input type="search" name="q" value="{{ keyword }}"
+                   placeholder="Search prompt, response, or template">
+            <button class="button primary" type="submit">Search</button>
+            {% if keyword %}
+                <a class="button secondary" href="{{ url_for('history') }}">Clear</a>
+            {% endif %}
+        </form>
+    </section>
+
+    {% if rows %}
+        {% for row in rows %}
+        <article class="history-card">
+            <div class="history-meta">
+                <span>{{ row["timestamp"] }}</span>
+                <span class="badge">{{ row["provider_mode"] }}</span>
+                <span class="badge">{{ row["status"] }}</span>
+                <span class="badge">{{ row["template"] }}</span>
+            </div>
+            <h3>Prompt</h3>
+            <p class="prompt-text">{{ row["prompt"] }}</p>
+            <h3>Response</h3>
+            <pre class="response-box small">{{ row["response"] or "No response stored." }}</pre>
+        </article>
+        {% endfor %}
+    {% else %}
+        <section class="card empty">
+            <h2>No history found</h2>
+            <p class="muted">Submit a prompt or try another search keyword.</p>
+        </section>
+    {% endif %}
+</main>
+</body>
+</html>
