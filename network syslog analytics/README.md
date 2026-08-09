@@ -45,7 +45,7 @@ From the project directory:
 ```bash
 python3 app.py
 ```
-
+![parsing image](./screenshots/parsing.png)
 This parses all files and creates:
 
 - `events.csv`
@@ -89,7 +89,7 @@ Filters can be combined:
 ```bash
 python3 app.py --date 2025-10-20 --device R4 --category CPU --show
 ```
-
+![filter image](./screenshots/Filtring%20output.png)
 ## Parsing model
 
 Each log line follows the supplied assessment format:
