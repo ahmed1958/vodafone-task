@@ -4,7 +4,6 @@ __pycache__/
 .venv/
 venv/
 .env
-prompt_history.db
 .DS_Store
 .vscode/
 .idea/
