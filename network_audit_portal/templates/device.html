@@ -1,0 +1,9 @@
+<!doctype html><html><head><title>{{data[0].hostname}}</title><link rel="stylesheet" href="/static/style.css"></head><body><nav><a href="/dashboard">Dashboard</a><a href="/upload">Upload</a></nav><main>
+{% set d=data[0] %}<h1>{{d.hostname}} <small>{{d.vendor}}</small></h1><p>Loopback0: {{'Present' if d.loopback0 else 'Missing'}} | IP: {{d.loopback_ip or 'N/A'}} | Router ID: {{d.router_id or 'N/A'}}</p>
+<h2>Interfaces</h2><table><tr><th>Name</th><th>IP</th><th>Subnet</th><th>Description</th></tr>{% for x in data[1] %}<tr><td>{{x.name}}</td><td>{{x.ip_address or ''}}</td><td>{{x.subnet or ''}}</td><td>{{x.description or ''}}</td></tr>{% endfor %}</table>
+<h2>Routing</h2><p>{% for x in data[2] %}{{x.protocol}}{% if x.area %} area {{x.area}}{% endif %}<br>{% endfor %}</p>
+<h2>BGP Neighbors</h2><p>{% for x in data[3] %}{{x.neighbor}}<br>{% else %}None{% endfor %}</p>
+<h2>ACL / Security</h2><p>{% for x in data[4] %}{{x.rule_name}}<br>{% else %}None{% endfor %}</p>
+<h2>Validation</h2><table><tr><th>Rule</th><th>Status</th><th>Details</th></tr>{% for x in data[5] %}<tr><td>{{x.rule_name}}</td><td>{{x.status}}</td><td>{{x.details}}</td></tr>{% endfor %}</table>
+<h2>Recent Logs</h2><table><tr><th>Time</th><th>Severity</th><th>Category</th><th>Risk</th><th>Message</th></tr>{% for x in data[6] %}<tr><td>{{x.timestamp}}</td><td>{{x.severity}}</td><td>{{x.category}}</td><td>{{x.risk_level}}</td><td>{{x.message}}</td></tr>{% endfor %}</table>
+</main></body></html>
