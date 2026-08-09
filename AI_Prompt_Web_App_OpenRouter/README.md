@@ -292,49 +292,6 @@ Then run the application again.
 
 Make sure the application can write to the directory containing `prompt_history.db`.
 
-## Suggested Git commit progression
-
-The assessment asks for commits showing build progress. A clean progression is:
-
-```bash
-git init
-git add .
-git commit -m "chore: initialize Flask project"
-
-git add .
-git commit -m "feat: add prompt API and mock provider"
-
-git add .
-git commit -m "feat: add SQLite prompt history"
-
-git add .
-git commit -m "feat: add prompt UI and history search"
-
-git add .
-git commit -m "test: add application tests"
-
-git add .
-git commit -m "docs: add setup and troubleshooting guide"
-```
-
-Do not squash these commits if the reviewer specifically wants to see development progress.
-
-## Screenshots to include in the submission
-
-Capture these three states:
-
-1. Successful prompt submission showing the response and `real` or `mock` badge.
-2. Empty prompt submission showing the user-friendly validation message.
-3. `/history` showing stored prompts and keyword search.
-
-Suggested filenames:
-
-```text
-screenshots/
-├── 01-successful-prompt.png
-├── 02-empty-input.png
-└── 03-history-page.png
-```
 
 ## Security notes
 
@@ -347,21 +304,3 @@ screenshots/
 - Flask debug mode is disabled by default.
 - The application does not persist API credentials.
 
-## Deliverables checklist
-
-- [x] Flask application
-- [x] HTML template
-- [x] Static CSS/JavaScript
-- [x] Requirements file
-- [x] Environment variable example
-- [x] SQLite auto-create logic
-- [x] Prompt history
-- [x] Keyword search
-- [x] Real API mode
-- [x] Deterministic mock mode
-- [x] Input validation
-- [x] Error and timeout handling
-- [x] Automated tests
-- [x] README
-- [ ] Screenshots — capture after running the app
-- [ ] Git commit history — create the commits listed above
