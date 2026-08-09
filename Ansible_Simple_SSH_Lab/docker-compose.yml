@@ -1,0 +1,27 @@
+services:
+  control:
+    build: ./control
+    container_name: ansible-control
+    hostname: control
+    volumes:
+      - ./lab:/workspace
+    networks:
+      - ansible_lab
+
+  agent1:
+    build: ./agent
+    container_name: ansible-agent1
+    hostname: agent1
+    networks:
+      - ansible_lab
+
+  agent2:
+    build: ./agent
+    container_name: ansible-agent2
+    hostname: agent2
+    networks:
+      - ansible_lab
+
+networks:
+  ansible_lab:
+    driver: bridge
