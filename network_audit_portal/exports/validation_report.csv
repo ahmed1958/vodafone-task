@@ -1,0 +1,26 @@
+Device,Validation_Rule,Status,Details
+R1,Loopback0,PASS,Loopback0 is present
+R1,OSPF area consistency,FAIL,"Declared OSPF areas 0; platform set is 0, 0.0.0.0, 1"
+R1,Subnet overlap,FAIL,GigabitEthernet0/0 192.168.1.0/24 overlaps R2:GigabitEthernet0/0/0 192.168.1.0/24
+R1,Subnet overlap,FAIL,GigabitEthernet0/1 10.10.1.0/24 overlaps R6:GigabitEthernet0/1 10.10.1.0/24
+R2,Loopback0,PASS,Loopback0 is present
+R2,OSPF area consistency,FAIL,"Declared OSPF areas 0; platform set is 0, 0.0.0.0, 1"
+R3,BGP consistency,PASS,BGP is declared; no common BGP area is present in supplied syntax
+R3,Loopback0,PASS,Loopback0 is present
+R3,OSPF area consistency,FAIL,"Declared OSPF areas 0.0.0.0; platform set is 0, 0.0.0.0, 1"
+R3,Subnet overlap,FAIL,ge-0/0/0 172.16.1.0/24 overlaps R6:GigabitEthernet0/0 172.16.1.0/24
+R3,Subnet overlap,FAIL,ge-0/0/0 172.16.1.0/24 overlaps R2:GigabitEthernet0/0/1 172.16.1.0/24
+R3,Subnet overlap,FAIL,ge-0/0/1 172.16.2.0/24 overlaps R4:GigabitEthernet0/0 172.16.2.0/24
+R4,BGP consistency,PASS,BGP is declared; no common BGP area is present in supplied syntax
+R4,Loopback0,PASS,Loopback0 is present
+R5,BGP consistency,PASS,BGP is declared; no common BGP area is present in supplied syntax
+R5,Loopback0,PASS,Loopback0 is present
+R5,Subnet overlap,FAIL,GigabitEthernet0/0/0 192.168.100.0/24 overlaps R7:GigabitEthernet0/0/0 192.168.100.0/24
+R5,Subnet overlap,FAIL,GigabitEthernet0/0/0 192.168.100.0/24 overlaps R4:GigabitEthernet0/1 192.168.100.0/24
+R6,Loopback0,FAIL,Loopback0 is missing
+R6,OSPF area consistency,FAIL,"Declared OSPF areas 1; platform set is 0, 0.0.0.0, 1"
+R6,Subnet overlap,FAIL,GigabitEthernet0/0 172.16.1.0/24 overlaps R2:GigabitEthernet0/0/1 172.16.1.0/24
+R7,BGP consistency,PASS,BGP is declared; no common BGP area is present in supplied syntax
+R7,Loopback0,PASS,Loopback0 is present
+R7,Subnet overlap,FAIL,LoopBack0 10.0.0.4/32 overlaps R4:Loopback0 10.0.0.4/32
+R7,Subnet overlap,FAIL,GigabitEthernet0/0/0 192.168.100.0/24 overlaps R4:GigabitEthernet0/1 192.168.100.0/24

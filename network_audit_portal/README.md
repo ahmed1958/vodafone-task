@@ -186,3 +186,7 @@ task2-network-audit/
 ├── uploads/
 └── exports/
 ```
+## Screenshots
+![ui](./Screenshots/ui%201.png)
+![ui](./Screenshots/ui%202.png)
+![terminal app logs](./Screenshots/app-running.png)
