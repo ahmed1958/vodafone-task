@@ -1,0 +1,52 @@
+---
+- name: Basic Ansible setup lab
+  hosts: linux_vms
+  gather_facts: true
+
+  vars:
+    lab_directory: /tmp/ansible_lab
+
+  tasks:
+    - name: Show host information
+      ansible.builtin.debug:
+        msg:
+          - "Hostname: {{ ansible_hostname | default('unknown') }}"
+          - "OS family: {{ ansible_os_family | default('unknown') }}"
+          - "IP address: {{ ansible_default_ipv4.address | default(ansible_host) }}"
+          - "Uptime: {{ ansible_uptime_seconds | default(0) }} seconds"
+
+    - name: Install curl
+      ansible.builtin.package:
+        name: curl
+        state: present
+
+    - name: Create lab directory
+      ansible.builtin.file:
+        path: "{{ lab_directory }}"
+        state: directory
+        mode: "0755"
+
+    - name: Copy lab message
+      ansible.builtin.copy:
+        dest: "{{ lab_directory }}/README.txt"
+        content: |
+          Ansible Basics Lab
+          Managed by Ansible.
+          Hostname: {{ ansible_hostname | default('unknown') }}
+          OS Family: {{ ansible_os_family | default('unknown') }}
+        mode: "0644"
+
+    - name: Check SSH daemon
+      ansible.builtin.shell:
+        cmd: "pgrep -x sshd"
+      register: sshd_check
+      changed_when: false
+      failed_when: false
+
+    - name: Report SSH status
+      ansible.builtin.debug:
+        msg: >-
+          SSH daemon is {{
+          'running' if sshd_check.rc == 0
+          else 'not detected; service/init system may differ'
+          }}.
