@@ -9,5 +9,4 @@ uploads/*
 instance/*
 !instance/.gitkeep
 
-*.db
 .DS_Store
