@@ -1,0 +1,12 @@
+<!doctype html><html><head><title>Network Audit Dashboard</title><link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script></head><body><nav><a href="/dashboard">Dashboard</a><a href="/upload">Upload</a><a href="/export">Export</a></nav>
+<main><h1>Network Audit Dashboard</h1>
+<section class="cards"><div>Devices <b>{{devices|length}}</b></div><div>PASS <b>{{summary.get('PASS',0)}}</b></div><div>FAIL <b>{{summary.get('FAIL',0)}}</b></div><div>High/Critical <b>{{events|length}}</b></div></section>
+<form method="get" class="filters"><input name="hostname" placeholder="Hostname" value="{{hostname}}"><select name="protocol"><option value="">Protocol</option><option value="OSPF">OSPF</option><option value="BGP">BGP</option></select><select name="status"><option value="">Validation status</option><option>PASS</option><option>FAIL</option></select><select name="risk"><option value="">Risk</option><option>High</option><option>Critical</option></select><button>Filter</button></form>
+<section class="grid"><div><h2>Validation Summary</h2><table><tr><th>Device</th><th>Rule</th><th>Status</th><th>Details</th></tr>{% for v in validations %}<tr><td>{{v.device}}</td><td>{{v.rule_name}}</td><td class="{{v.status|lower}}">{{v.status}}</td><td>{{v.details}}</td></tr>{% endfor %}</table></div></section>
+<section class="charts"><div><h2>BGP vs OSPF Router Count</h2><canvas id="protocolChart"></canvas></div><div><h2>Interfaces per Device</h2><canvas id="interfaceChart"></canvas></div></section>
+<section><h2>Recent High-Risk Events</h2><table><tr><th>Time</th><th>Device</th><th>Severity</th><th>Category</th><th>Risk</th><th>Message</th></tr>{% for e in events %}<tr><td>{{e.timestamp}}</td><td><a href="/device/{{e.device}}">{{e.device}}</a></td><td>{{e.severity}}</td><td>{{e.category}}</td><td>{{e.risk_level}}</td><td>{{e.message}}</td></tr>{% endfor %}</table></section>
+<script>
+new Chart(document.getElementById('protocolChart'),{type:'bar',data:{labels:[{% for p in protocols %}'{{p.protocol}}',{% endfor %}],datasets:[{label:'Routers',data:[{% for p in protocols %}{{p.count}},{% endfor %}]}]}});
+new Chart(document.getElementById('interfaceChart'),{type:'bar',data:{labels:[{% for i in interfaces %}'{{i.hostname}}',{% endfor %}],datasets:[{label:'Interfaces',data:[{% for i in interfaces %}{{i.count}},{% endfor %}]}]}});
+</script></main></body></html>
