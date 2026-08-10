@@ -29,26 +29,48 @@ A small, production-aware Flask application that accepts an AI prompt, applies a
 
 ## Architecture
 
-```text
-Browser
-   |
-   | POST /api/prompt
-   v
-Flask Application
-   |
-   +--> Validate prompt/template
-   |
-   +--> AI Provider Service
-   |       |
-   |       +--> OpenAI API (real mode)
-   |       |
-   |       +--> Deterministic mock (local mode)
-   |
-   +--> SQLite history
-   |
-   v
-JSON response
-```
+                        USER
+                          │
+                          ▼
+                    index.html
+                          │
+                          ▼
+                       app.js
+                          │
+                          │ POST /api/prompt
+                          ▼
+                      app.py
+                          │
+                   ┌──────┴──────┐
+                   │ Validation  │
+                   └──────┬──────┘
+                          │
+                          ▼
+                 generate_response()
+                          │
+                          ▼
+                 ai_provider.py
+                          │
+            ┌─────────────┼─────────────┐
+            ▼             ▼             ▼
+        OpenRouter      Gemini        OpenAI
+            │             │             │
+            └─────────────┼─────────────┘
+                          ▼
+                       AI Result
+                          │
+                          ▼
+                  ProviderResult
+                          │
+             ┌────────────┴────────────┐
+             ▼                         ▼
+      save_history()                jsonify()
+             │                         │
+             ▼                         ▼
+         SQLite DB                  app.js
+                                       │
+                                       ▼
+                                   Browser
 
 ## AI provider and mock mode
 
